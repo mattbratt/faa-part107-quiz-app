@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FAA Part 107 Quiz App</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        .question { margin-bottom: 20px; }
+        .answers button { display: block; margin: 5px 0; width: 100%; }
+        .figure-img { max-width: 100%; margin: 10px 0; border: 1px solid #ccc; }
+        #result { font-size: 1.2em; margin-top: 20px; }
+        .review { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<h1>FAA Part 107 Quiz</h1>
+<div id="quiz">
+    <div id="progress"></div>
+    <div id="figure"></div>
+    <div class="question" id="question"></div>
+    <div class="answers" id="answers"></div>
+</div>
+
+<div id="result" style="display:none;"></div>
+<div id="review" style="display:none;">
+    <h2>Review Incorrect Answers</h2>
+</div>
+
+<script src="questions.js"></script>
+<script>
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedAnswers = [];
+    let incorrectAnswers = [];
+    const totalQuestions = 60;
+    const quizQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
+
+    function showQuestion() {
+        const q = quizQuestions[currentQuestion];
+        document.getElementById('progress').innerText = `Question ${currentQuestion + 1} of ${totalQuestions}`;
+        document.getElementById('question').innerText = q.question;
+        const answersDiv = document.getElementById('answers');
+        answersDiv.innerHTML = '';
+        for (const key in q.answers) {
+            const btn = document.createElement('button');
+            btn.innerText = `${key}: ${q.answers[key]}`;
+            btn.onclick = () => selectAnswer(key);
+            answersDiv.appendChild(btn);
+        }
+        if (q.figure) {
+            document.getElementById('figure').innerHTML = `<img src="figures/${q.figure}" alt="Figure ${q.figure}" class="figure-img">`;
+        } else {
+            document.getElementById('figure').innerHTML = '';
+        }
+    }
+
+    function selectAnswer(answer) {
+        const q = quizQuestions[currentQuestion];
+        selectedAnswers.push({ question: q, selected: answer });
+        if (answer === q.correct) { score++; }
+        else { incorrectAnswers.push({ question: q, selected: answer }); }
+        currentQuestion++;
+        if (currentQuestion < totalQuestions) { showQuestion(); }
+        else { showResult(); }
+    }
+
+    function showResult() {
+        document.getElementById('quiz').style.display = 'none';
+        const percent = Math.round((score / totalQuestions) * 100);
+        const passed = percent >= 70 ? '✅ Passed!' : '❌ Failed.';
+        document.getElementById('result').innerHTML = `<strong>Score: ${score}/${totalQuestions} (${percent}%)</strong><br>${passed}`;
+        document.getElementById('result').style.display = 'block';
+        showReview();
+    }
+
+    function showReview() {
+        if (incorrectAnswers.length === 0) {
+            document.getElementById('review').innerHTML += "<p>All answers correct!</p>";
+            document.getElementById('review').style.display = 'block';
+            return;
+        }
+        const reviewDiv = document.getElementById('review');
+        incorrectAnswers.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'review';
+            div.innerHTML = `
+                <strong>Q${index + 1}:</strong> ${item.question.question}<br>
+                <em>Your Answer:</em> ${item.selected}: ${item.question.answers[item.selected]}<br>
+                <em>Correct Answer:</em> ${item.question.correct}: ${item.question.answers[item.question.correct]}<br>
+                ${item.question.figure ? `<img src="figures/${item.question.figure}" class="figure-img">` : ''}
+            `;
+            reviewDiv.appendChild(div);
+        });
+        reviewDiv.style.display = 'block';
+    }
+
+    showQuestion();
+</script>
+
+</body>
+</html>
