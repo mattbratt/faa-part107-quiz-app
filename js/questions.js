@@ -1398,8 +1398,9 @@ const questions = [
     tags: ["waivers", "regulations"],
     figure: null,
     source: "https://www.faa.gov/uas/commercial_operators/part_107_waivers"
-  }
-  const moreQuestions = [
+  },
+ 
+ 
     {
       id: 101,
       tag: "airspace",
@@ -2106,7 +2107,7 @@ const questions = [
         figure: "sectional_chart_example.jpg",
         source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
         explanation: "'MTR' indicates Military Training Routes marked as VR (visual) or IR (IFR)."
-      }
+      },
  
         {
           id: 151,
@@ -2667,7 +2668,7 @@ const questions = [
           figure: "sectional_chart_example.jpg",
           source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
           explanation: "Restricted areas use blue hatched boundaries labeled 'R-###'."
-        }
+        },
      
   
           {
@@ -2809,7 +2810,7 @@ const questions = [
             figure: null,
             source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
             explanation: "Wind shear is a rapid change in wind speed or direction over a short distance."
-          }
+          },
 
           
             {
@@ -3091,7 +3092,7 @@ const questions = [
               figure: null,
               source: "https://pilotinstitute.com/part-107-practice-test/",
               explanation: "Stable air leads to stratus clouds and reduced visibility."
-            }
+            },
       
             
 
@@ -3518,7 +3519,7 @@ const questions = [
                 figure: null,
                 source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
                 explanation: "Authorization is required to operate in Class E surface extensions."
-              }
+              },
     
 
               
@@ -4015,7 +4016,7 @@ const questions = [
                   figure: "sectional_chart_example.jpg",
                   source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
                   explanation: "Underlined name indicates part-time lighting."
-                }
+                },
    
 
                   {

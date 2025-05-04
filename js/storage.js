@@ -1,66 +1,43 @@
 const Storage = {
-    students: [],
-    selectedStudent: null,
+    keyPrefix: 'faa_part107_quiz_',
   
-    loadStudents() {
-      const data = localStorage.getItem("students");
-      if (data) {
-        this.students = JSON.parse(data);
-      } else {
-        this.students = [];
+    getStudentNames: function () {
+      const data = localStorage.getItem(this.keyPrefix + 'students');
+      return data ? JSON.parse(data) : [];
+    },
+  
+    saveStudentName: function (name) {
+      let students = this.getStudentNames();
+      if (!students.includes(name)) {
+        students.push(name);
+        localStorage.setItem(this.keyPrefix + 'students', JSON.stringify(students));
       }
     },
   
-    saveStudents() {
-      localStorage.setItem("students", JSON.stringify(this.students));
+    saveResult: function (studentName, result) {
+      let results = this.getResults(studentName);
+      results.push({
+        date: new Date().toISOString(),
+        correct: result.correct,
+        total: result.total,
+        score: result.score
+      });
+      localStorage.setItem(
+        this.keyPrefix + 'results_' + studentName,
+        JSON.stringify(results)
+      );
     },
   
-    addStudent(name) {
-      if (!this.students.find(s => s.name === name)) {
-        const newStudent = { name, tests: [] };
-        this.students.push(newStudent);
-        this.saveStudents();
-      }
-      this.selectedStudent = name;
-    },
-  
-    selectStudent(name) {
-      if (this.students.find(s => s.name === name)) {
-        this.selectedStudent = name;
-      }
-    },
-  
-    logTest(score, totalQuestions, timeTaken, incorrectAnswers) {
-      const student = this.students.find(s => s.name === this.selectedStudent);
-      if (student) {
-        student.tests.push({
-          date: new Date().toISOString(),
-          score,
-          totalQuestions,
-          timeTaken,
-          incorrectAnswers
-        });
-        this.saveStudents();
-      }
-    },
-  
-    deleteStudent(name) {
-      this.students = this.students.filter(s => s.name !== name);
-      this.saveStudents();
-      if (this.selectedStudent === name) {
-        this.selectedStudent = null;
-      }
-    },
-  
-    exportData() {
-      const dataStr = JSON.stringify(this.students, null, 2);
-      const blob = new Blob([dataStr], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "student_data.json";
-      link.click();
-      URL.revokeObjectURL(url);
+    getResults: function (studentName) {
+      const data = localStorage.getItem(this.keyPrefix + 'results_' + studentName);
+      return data ? JSON.parse(data) : [];
     }
   };
+  
+  // Add a function to initialize storage with a default empty array if not set
+  (function initializeStorage() {
+    if (!localStorage.getItem(Storage.keyPrefix + 'students')) {
+      localStorage.setItem(Storage.keyPrefix + 'students', JSON.stringify([]));
+    }
+  })();
   
