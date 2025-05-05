@@ -1,4 +1,4 @@
-const questions = [
+const QUESTIONS = [
   {
     id: 1,
     question: "A small unmanned aircraft causes an accident in which a person on your crew loses consciousness. Under 14 CFR Part 107, when must you report this accident to the FAA?",
@@ -1794,7 +1794,7 @@ const questions = [
         C: "Drone launching locations"
       },
       correct: "B",
-      figure: "sectional_chart_example.jpg",
+      figure: null,
       source: "https://pilotinstitute.com/part-107-practice-test/",
       explanation: "Magenta flags indicate recommended VFR reporting points at non-towered airports."
     },
@@ -2595,7 +2595,7 @@ const questions = [
             C: "Marine operations airspace"
           },
           correct: "A",
-          figure: "sectional_chart_example.jpg",
+          figure: "moa1.png",
           source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
           explanation: "'MOA' = Military Operations Area; caution advised during military activity."
         },
@@ -3348,7 +3348,7 @@ const questions = [
                   C: "Minimum Obstacle Altitude"
                 },
                 correct: "A",
-                figure: "sectional_chart_example.jpg",
+                figure: "moa1.png",
                 source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
                 explanation: "'MOA' stands for Military Operations Area."
               },
@@ -3901,7 +3901,7 @@ const questions = [
                     C: "Prohibited area"
                   },
                   correct: "A",
-                  figure: "sectional_chart_example.jpg",
+                  figure: "moa1.png",
                   source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
                   explanation: "Blue hash lines indicate a restricted area."
                 },
@@ -4085,7 +4085,7 @@ const questions = [
                       C: "Green dashed lines"
                     },
                     correct: "B",
-                    figure: "sectional_chart_example.jpg",
+                    figure: "restricted1.png",
                     source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
                     explanation: "Special use airspace (MOA, restricted, prohibited) is labeled and depicted by various chart symbols."
                   },
@@ -4197,7 +4197,7 @@ const questions = [
                       C: "Contact controlling agency for clearance"
                     },
                     correct: "B",
-                    figure: "sectional_chart_example.jpg",
+                    figure: null,
                     source: "https://jrupprechtlaw.com/part-107-knowledge-test/",
                     explanation: "MOAs do not restrict flights but pilots must use caution due to military activities."
                   },
@@ -4230,40 +4230,9 @@ const questions = [
                     explanation: "You must be at least 16 to earn a Remote Pilot Certificate under Part 107."
                   }
                    
-                ]
+                ];
 
-
-
-
-
-
-
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+window.QUESTIONS = QUESTIONS;                
 
 
 

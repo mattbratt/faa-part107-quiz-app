@@ -1,4 +1,4 @@
-const Storage = {
+const QuizStorage = {
     keyPrefix: 'faa_part107_quiz_',
   
     getStudentNames: function () {
@@ -34,10 +34,18 @@ const Storage = {
     }
   };
   
-  // Add a function to initialize storage with a default empty array if not set
+  // ✅ Fixed reference here:
   (function initializeStorage() {
-    if (!localStorage.getItem(Storage.keyPrefix + 'students')) {
-      localStorage.setItem(Storage.keyPrefix + 'students', JSON.stringify([]));
+    if (!localStorage.getItem(QuizStorage.keyPrefix + 'students')) {
+      localStorage.setItem(QuizStorage.keyPrefix + 'students', JSON.stringify([]));
     }
   })();
-  
+
+  QuizStorage.getRandomQuestions = function (count) {
+    if (!window.QUESTIONS || !Array.isArray(window.QUESTIONS)) {
+        console.error("QUESTIONS array is not defined.");
+        return [];
+    }
+    const shuffled = [...QUESTIONS].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+};
