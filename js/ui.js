@@ -276,6 +276,15 @@ const UI = {
         UI.showEditQuestions();
     },
 
+    showStats: function (results, studentName) {
+        if (!results || results.length === 0) {
+            alert(`No results found for ${studentName}.`);
+            UI.showStudentPicker(QuizStorage.getStudentNames());
+        } else {
+            ChartManager.renderStudentScores(results, studentName);
+        }
+    },
+
     init: function () {
         console.log('UI initialized');
     }
